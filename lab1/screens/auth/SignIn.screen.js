@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Button } from "react-native";
 
+import Firebase from "../../makers/firebase";
 import ValidatedTextInput from "../../components/ValidatedTextInput";
 import { validateEmail, validatePassword } from "../../utils/validators";
 
@@ -23,8 +24,9 @@ class SignInScreen extends Component {
     this.setState({ password });
   };
 
-  onSubmitPress = () => {
+  onSubmitPress = async () => {
     const { email, password } = this.state;
+    const { navigation } = this.props;
 
     const validatedEmail = validateEmail(email);
     const validatedPassword = validatePassword(password);
@@ -37,7 +39,12 @@ class SignInScreen extends Component {
 
     if (!isValid) return;
 
-    console.log("Performing some validation...");
+    try {
+      await Firebase.auth().signInWithEmailAndPassword(email, password);
+      navigation.navigate("Main");
+    } catch ({ message }) {
+      alert(message);
+    }
   };
 
   onSignUpPress = () => {
