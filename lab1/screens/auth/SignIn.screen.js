@@ -71,6 +71,7 @@ class SignInScreen extends Component {
           placeholder="Password"
           onChangeText={this.onPasswordChange}
           errors={errors}
+          secureTextEntry
         />
 
         <Button title="Sign in" onPress={this.onSubmitPress} />

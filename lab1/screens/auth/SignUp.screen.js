@@ -80,6 +80,7 @@ class SignUpScreen extends Component {
           placeholder="Password"
           onChangeText={text => this.onFieldChange("password", text)}
           errors={errors}
+          secureTextEntry
         />
 
         <ValidatedTextInput
