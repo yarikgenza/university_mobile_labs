@@ -32,4 +32,32 @@ const validatePassword = value => {
   };
 };
 
-export { validateEmail, validatePassword };
+const validateName = value => {
+  const target = "name";
+  const errors = [];
+
+  if (!value) {
+    errors.push({ target, message: "Password cannot be empty" });
+  }
+
+  return {
+    isValid: !errors.length,
+    errors
+  };
+};
+
+const validatePhone = value => {
+  const target = "phone";
+  const errors = [];
+
+  if (!value) {
+    errors.push({ target, message: "Phone cannot be empty" });
+  }
+
+  return {
+    isValid: !errors.length,
+    errors
+  };
+};
+
+export { validateEmail, validatePassword, validateName, validatePhone };
