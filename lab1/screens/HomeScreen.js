@@ -8,23 +8,6 @@ class HomeScreen extends Component {
     title: "Home"
   };
 
-  state = {
-    user: null
-  };
-
-  componentDidMount() {
-    try {
-      const { currentUser } = Firebase.auth();
-      Firebase.database()
-        .ref(`users/${currentUser.uid}`)
-        .once("value", raw => {
-          this.setState({ user: raw.val() });
-        });
-    } catch ({ message }) {
-      console.error(message);
-    }
-  }
-
   onSignOutPress = async () => {
     const { navigation } = this.props;
     await Firebase.auth().signOut();
@@ -32,11 +15,11 @@ class HomeScreen extends Component {
   };
 
   render() {
-    const { user } = this.state;
+    const { currentUser: user } = Firebase.auth();
 
     return user ? (
       <View>
-        <Text>Hello, {user.name}</Text>
+        <Text>Hello, {user.displayName}</Text>
         <Button onPress={this.onSignOutPress} title="Sign Out" />
       </View>
     ) : null;

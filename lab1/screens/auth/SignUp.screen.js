@@ -36,23 +36,31 @@ class SignUpScreen extends Component {
     const validatedName = validateName(name);
     const validatedPhone = validatePhone(phone);
 
-    const errors = validatedEmail.errors.concat(
-      validatedPassword.errors,
-      validatedPhone.errors,
-      validatedName.errors
-    );
+    const errors = [
+      ...validatedEmail.errors,
+      ...validatedPassword.errors,
+      ...validatedPhone.errors,
+      ...validatedName.errors
+    ];
 
     this.setState({ errors });
     if (errors.length) return;
 
+    await this.signUp(login, password, displayName, phone);
+  };
+
+  signUp = async (login, password, displayName, phone) => {
+    const { navigation } = this.props;
     try {
-      const resp = await Firebase.auth().createUserWithEmailAndPassword(
+      const response = await Firebase.auth().createUserWithEmailAndPassword(
         email,
         password
       );
-      await Firebase.database()
-        .ref(`users/${resp.user.uid}`)
-        .set({ name, phone });
+
+      response.user.updateProfile({
+        displayName: name,
+        phoneNumber: phone
+      });
 
       await Firebase.auth().signInWithEmailAndPassword(email, password);
       navigation.navigate("Main");
