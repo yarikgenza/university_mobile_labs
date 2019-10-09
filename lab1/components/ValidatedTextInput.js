@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { TextInput, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { TextInput } from "react-native-paper";
 
 class ValidatedTextInput extends Component {
   render() {
@@ -7,7 +8,7 @@ class ValidatedTextInput extends Component {
 
     return error ? (
       <View>
-        <TextInput {...this.props} style={styles.inputInvalid} />
+        <TextInput error {...this.props} style={styles.inputInvalid} />
         <Text>{error.message}</Text>
       </View>
     ) : (
