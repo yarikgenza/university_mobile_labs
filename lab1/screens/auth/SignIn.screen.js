@@ -16,6 +16,16 @@ class SignInScreen extends Component {
     errors: []
   };
 
+  signIn = async (email, password) => {
+    const { navigation } = this.props;
+    try {
+      await Firebase.auth().signInWithEmailAndPassword(email, password);
+      navigation.navigate("Main");
+    } catch ({ message }) {
+      alert(message);
+    }
+  };
+
   onEmailChange = email => {
     this.setState({ email });
   };
@@ -30,21 +40,14 @@ class SignInScreen extends Component {
 
     const validatedEmail = validateEmail(email);
     const validatedPassword = validatePassword(password);
-
     const isValid = validatedEmail.isValid && validatedPassword.isValid;
 
     this.setState({
-      errors: validatedEmail.errors.concat(validatedPassword.errors)
+      errors: [...validatedEmail.errors, ...validatedPassword.errors]
     });
 
     if (!isValid) return;
-
-    try {
-      await Firebase.auth().signInWithEmailAndPassword(email, password);
-      navigation.navigate("Main");
-    } catch ({ message }) {
-      alert(message);
-    }
+    this.signIn(email, password);
   };
 
   onSignUpPress = () => {
@@ -88,8 +91,7 @@ const styles = {
     borderColor: "gray",
     borderWidth: 1,
     margin: 25
-  },
-  textInputInvalid: {}
+  }
 };
 
 export default SignInScreen;
