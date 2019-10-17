@@ -36,7 +36,7 @@ class HomeScreen extends Component {
 
     return user ? (
       <>
-        <View>
+        <View style={styles.container}>
           <Text>Hello, {user.displayName}</Text>
           <Button onPress={this.onSignOutPress} title="Sign Out" />
         </View>
@@ -48,5 +48,14 @@ class HomeScreen extends Component {
     ) : null;
   }
 }
+
+const styles = {
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+};
 
 export default HomeScreen;
