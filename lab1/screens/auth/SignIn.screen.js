@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text } from "react-native";
 
 import Firebase from "../../makers/firebase";
 import ValidatedTextInput from "../../components/ValidatedTextInput";
+import Button from "../../components/Button";
 import { validateEmail, validatePassword } from "../../utils/validators";
 
 class SignInScreen extends Component {
@@ -59,38 +60,40 @@ class SignInScreen extends Component {
     const { email, password, errors } = this.state;
 
     return (
-      <View style={styles.container}>
+      <View>
         <ValidatedTextInput
+          label="email"
           name="email"
           value={email}
-          placeholder="Email"
           onChangeText={this.onEmailChange}
           errors={errors}
         />
 
         <ValidatedTextInput
           name="password"
+          label="password"
           value={password}
-          placeholder="Password"
           onChangeText={this.onPasswordChange}
           errors={errors}
           secureTextEntry
         />
 
-        <Button title="Sign in" onPress={this.onSubmitPress} />
+        <View style={styles.buttonsContainer}>
+          <Button title="Sign in" type="primary" onPress={this.onSubmitPress} />
 
-        <Button title="Sign up" onPress={this.onSignUpPress} />
+          <Button title="Switch to Sign Up" onPress={this.onSignUpPress} />
+        </View>
       </View>
     );
   }
 }
 
 const styles = {
-  textInput: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    margin: 25
+  buttonsContainer: {
+    margin: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column"
   }
 };
 

@@ -6,29 +6,36 @@ class ValidatedTextInput extends Component {
   render() {
     const error = this.props.errors.find(e => e.target === this.props.name);
 
-    return error ? (
+    return (
       <View>
-        <TextInput error {...this.props} style={styles.inputInvalid} />
-        <Text>{error.message}</Text>
+        <TextInput
+          error={!!error}
+          {...this.props}
+          style={error ? styles.inputInvalid : styles.input}
+        />
+        <Text style={styles.errorMessage}>{error && error.message}</Text>
       </View>
-    ) : (
-      <TextInput {...this.props} style={styles.input} />
     );
   }
 }
 
 const styles = {
   input: {
-    height: 40,
-    borderColor: "gray",
+    borderColor: "blue",
     borderWidth: 1,
-    margin: 25
+    margin: 25,
+    marginBottom: 7
   },
   inputInvalid: {
-    height: 40,
     borderColor: "red",
     borderWidth: 1,
-    margin: 25
+    margin: 25,
+    marginBottom: 7
+  },
+  errorMessage: {
+    height: 15,
+    color: "red",
+    marginLeft: 25
   }
 };
 

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text } from "react-native";
 import { Snackbar } from "react-native-paper";
 
 import NetInfo from "@react-native-community/netinfo";
 import Firebase from "../makers/firebase";
+import Button from "../components/Button";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -37,8 +38,12 @@ class HomeScreen extends Component {
     return user ? (
       <>
         <View style={styles.container}>
-          <Text>Hello, {user.displayName}</Text>
-          <Button onPress={this.onSignOutPress} title="Sign Out" />
+          <Text style={styles.welcomeText}>Hello, {user.displayName}</Text>
+          <Button
+            onPress={this.onSignOutPress}
+            type="primary"
+            title="Sign Out"
+          />
         </View>
 
         <Snackbar visible={!isConnected} duration={300}>
