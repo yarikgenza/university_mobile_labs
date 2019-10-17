@@ -46,10 +46,10 @@ class SignUpScreen extends Component {
     this.setState({ errors });
     if (errors.length) return;
 
-    await this.signUp(login, password, displayName, phone);
+    await this.signUp(email, password, name, phone);
   };
 
-  signUp = async (login, password, displayName, phone) => {
+  signUp = async (email, password, name, phone) => {
     const { navigation } = this.props;
     try {
       const response = await Firebase.auth().createUserWithEmailAndPassword(
