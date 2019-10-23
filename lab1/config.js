@@ -1,4 +1,5 @@
 export default {
+  backendUrl: "",
   firebase: {
     apiKey: "AIzaSyD4vsG_jdM4ygiPPg0f71SIkTSBPZ2NpBc",
     authDomain: "lab1-e98cb.firebaseapp.com",
