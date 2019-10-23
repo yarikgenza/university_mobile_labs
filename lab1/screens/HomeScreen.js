@@ -1,12 +1,29 @@
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text } from "react-native";
+import { Snackbar } from "react-native-paper";
 
+import NetInfo from "@react-native-community/netinfo";
 import Firebase from "../makers/firebase";
+import Button from "../components/Button";
 
 class HomeScreen extends Component {
   static navigationOptions = {
-    title: "Home"
+    title: "Movies"
   };
+
+  state = {
+    isConnected: true
+  };
+
+  componentDidMount() {
+    this.unsubscribeFromNetworkStatus = NetInfo.addEventListener(
+      ({ isConnected }) => this.setState({ isConnected })
+    );
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromNetworkStatus();
+  }
 
   onSignOutPress = async () => {
     const { navigation } = this.props;
@@ -15,15 +32,35 @@ class HomeScreen extends Component {
   };
 
   render() {
+    const { isConnected } = this.state;
     const { currentUser: user } = Firebase.auth();
 
     return user ? (
-      <View>
-        <Text>Hello, {user.displayName}</Text>
-        <Button onPress={this.onSignOutPress} title="Sign Out" />
-      </View>
+      <>
+        <View style={styles.container}>
+          <Text style={styles.welcomeText}>Hello, {user.displayName}</Text>
+          <Button
+            onPress={this.onSignOutPress}
+            type="primary"
+            title="Sign Out"
+          />
+        </View>
+
+        <Snackbar visible={!isConnected} duration={300}>
+          Connection lost :(
+        </Snackbar>
+      </>
     ) : null;
   }
 }
+
+const styles = {
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+};
 
 export default HomeScreen;

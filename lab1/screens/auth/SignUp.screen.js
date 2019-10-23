@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text } from "react-native";
 
 import Firebase from "../../makers/firebase";
 import ValidatedTextInput from "../../components/ValidatedTextInput";
+import Button from "../../components/Button";
 import {
   validateEmail,
   validatePassword,
@@ -46,10 +47,10 @@ class SignUpScreen extends Component {
     this.setState({ errors });
     if (errors.length) return;
 
-    await this.signUp(login, password, displayName, phone);
+    await this.signUp(email, password, name, phone);
   };
 
-  signUp = async (login, password, displayName, phone) => {
+  signUp = async (email, password, name, phone) => {
     const { navigation } = this.props;
     try {
       const response = await Firebase.auth().createUserWithEmailAndPassword(
@@ -107,7 +108,9 @@ class SignUpScreen extends Component {
           errors={errors}
         />
 
-        <Button title="Sign up" onPress={this.onSubmitPress} />
+        <View style={styles.buttonContainer}>
+          <Button type="primary" title="Sign up" onPress={this.onSubmitPress} />
+        </View>
       </View>
     );
   }
@@ -120,7 +123,15 @@ const styles = {
     borderWidth: 1,
     margin: 25
   },
-  textInputInvalid: {}
+  buttonContainer: {
+    margin: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column"
+  },
+  button: {
+    marginBottom: 25
+  }
 };
 
 export default SignUpScreen;

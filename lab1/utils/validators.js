@@ -18,10 +18,14 @@ const validateEmail = value => {
 
 const validatePassword = value => {
   const target = "password";
+  // const pattern = /[a-z][0-9]${8+}/;
   const errors = [];
 
   if (!value) {
     errors.push({ target, message: "Password cannot be empty" });
+    // } else if (!pattern.test(value)) {
+    //   errors.push({ target, message: "Password length should be >= 8" });
+    // } else if (value.length < 8) {
   } else if (value.length < 8) {
     errors.push({ target, message: "Password length should be >= 8" });
   }
