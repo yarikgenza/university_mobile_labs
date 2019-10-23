@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { SafeAreaView, View, Text } from "react-native";
 import { Snackbar } from "react-native-paper";
 
 import NetInfo from "@react-native-community/netinfo";
 import Button from "../components/Button";
+import MoviesList from "../components/movies/List";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -34,15 +35,12 @@ class HomeScreen extends Component {
     const { isConnected } = this.state;
 
     return (
-      <>
-        <View style={styles.container}>
-          <Text style={styles.welcomeText}>Hello</Text>
-        </View>
-
+      <SafeAreaView style={styles.container}>
+        <MoviesList />
         <Snackbar visible={!isConnected} duration={300}>
           Connection lost :(
         </Snackbar>
-      </>
+      </SafeAreaView>
     );
   }
 }

@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 34234,
+  "packagerPort": 19003,
+  "packagerPid": 75245,
   "expoServerNgrokUrl": "https://kw-6bg.yarik-genza.lab1.exp.direct",
   "packagerNgrokUrl": "https://packager.kw-6bg.yarik-genza.lab1.exp.direct",
-  "ngrokPid": 34265
+  "ngrokPid": 75259
 }

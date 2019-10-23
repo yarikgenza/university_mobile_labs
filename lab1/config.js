@@ -1,5 +1,5 @@
 export default {
-  backendUrl: "",
+  backendUrl: "https://us-central1-lab1-e98cb.cloudfunctions.net",
   firebase: {
     apiKey: "AIzaSyD4vsG_jdM4ygiPPg0f71SIkTSBPZ2NpBc",
     authDomain: "lab1-e98cb.firebaseapp.com",

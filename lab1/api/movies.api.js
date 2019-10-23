@@ -1,4 +1,4 @@
-import Api from "./ApiBase";
+import Api from "./base.api";
 
 class MoviesApi extends Api {
   constructor() {
