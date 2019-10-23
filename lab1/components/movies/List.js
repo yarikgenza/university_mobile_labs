@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View, FlatList } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 
+import Card from "./Card";
 import MoviesApi from "../../api/movies.api";
 
 class MoviesList extends Component {
   state = {
     movies: [],
-    isLoading: true
+    isLoading: true,
+    isRefreshing: false
   };
 
   componentDidMount() {
@@ -24,25 +26,33 @@ class MoviesList extends Component {
     }
   };
 
+  onListRefresh = async () => {
+    this.setState({ isRefreshing: true });
+    const movies = await MoviesApi.getList();
+    this.setState({ isRefreshing: false, movies });
+  };
+
+  _renderItem = ({ item }) => <Card item={item} />;
+
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, isRefreshing, movies } = this.state;
 
     return (
       <View>
         {isLoading ? (
-          <ActivityIndicator
-            animating={true}
-            color={Colors.red800}
-            size="large"
-          />
+          <ActivityIndicator animating color={Colors.red800} size="large" />
         ) : (
-          <Text>hellloo</Text>
+          <FlatList
+            data={movies}
+            renderItem={this._renderItem}
+            keyExtractor={item => item.title}
+            onRefresh={this.onListRefresh}
+            refreshing={isRefreshing}
+          />
         )}
       </View>
     );
   }
 }
-
-const styles = {};
 
 export default MoviesList;
