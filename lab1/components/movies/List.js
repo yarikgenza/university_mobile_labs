@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, FlatList } from "react-native";
-import { ActivityIndicator, Colors } from "react-native-paper";
+import { ActivityIndicator, Colors, Snackbar } from "react-native-paper";
 
 import Card from "./Card";
 import MoviesApi from "../../api/movies.api";
@@ -9,7 +9,8 @@ class MoviesList extends Component {
   state = {
     movies: [],
     isLoading: true,
-    isRefreshing: false
+    isRefreshing: false,
+    error: null
   };
 
   componentDidMount() {
@@ -22,7 +23,7 @@ class MoviesList extends Component {
       const movies = await MoviesApi.getList();
       this.setState({ movies, isLoading: false });
     } catch ({ message }) {
-      console.log(message);
+      this.setState({ error: message });
     }
   };
 
@@ -35,7 +36,7 @@ class MoviesList extends Component {
   _renderItem = ({ item }) => <Card item={item} />;
 
   render() {
-    const { isLoading, isRefreshing, movies } = this.state;
+    const { isLoading, isRefreshing, movies, error } = this.state;
 
     return (
       <View>
@@ -50,6 +51,11 @@ class MoviesList extends Component {
             refreshing={isRefreshing}
           />
         )}
+        {
+          <Snackbar duration={300} visible={!!error}>
+            {error}
+          </Snackbar>
+        }
       </View>
     );
   }
