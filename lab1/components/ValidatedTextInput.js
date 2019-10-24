@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, View } from "react-native";
 import { TextInput } from "react-native-paper";
+import PropTypes from "prop-types";
 
 class ValidatedTextInput extends Component {
   render() {
@@ -37,6 +38,10 @@ const styles = {
     color: "red",
     marginLeft: 25
   }
+};
+
+ValidatedTextInput.propTypes = {
+  errors: PropTypes.array
 };
 
 export default ValidatedTextInput;

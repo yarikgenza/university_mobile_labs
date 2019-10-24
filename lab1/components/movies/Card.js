@@ -7,6 +7,7 @@ import {
   Paragraph,
   Colors
 } from "react-native-paper";
+import PropTypes from "prop-types";
 
 const MovieCard = ({ item }) => (
   <Card style={styles.container}>
@@ -31,6 +32,10 @@ const styles = {
   cardTitle: {
     backgroundColor: "#ab47bc"
   }
+};
+
+MovieCard.propTypes = {
+  item: PropTypes.object
 };
 
 export default MovieCard;
