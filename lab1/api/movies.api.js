@@ -6,12 +6,8 @@ class MoviesApi extends Api {
   }
 
   getList = async () => {
-    try {
-      const response = await this.request();
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    const response = await this.request();
+    return response;
   };
 }
 
