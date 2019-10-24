@@ -6,7 +6,7 @@ import AuthStackNavigator from "./AuthStackNavigator";
 
 export default createAppContainer(
   createSwitchNavigator({
-    Auth: AuthStackNavigator,
+    // Auth: AuthStackNavigator,
     Main: MainStackNavigator
   })
 );

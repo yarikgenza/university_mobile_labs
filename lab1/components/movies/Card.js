@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import { View } from "react-native";
 import {
   Avatar,
   Button,
   Card,
   Title,
   Paragraph,
-  Colors
+  Colors,
+  Chip
 } from "react-native-paper";
 import PropTypes from "prop-types";
 
@@ -20,6 +22,11 @@ const MovieCard = ({ item }) => (
     />
     <Card.Content>
       <Paragraph>{item.description}</Paragraph>
+      <View style={{ flexDirection: "row" }}>
+        {item.tags.map(tag => (
+          <Chip style={styles.chip}>{tag}</Chip>
+        ))}
+      </View>
     </Card.Content>
     <Card.Cover source={{ uri: item.poster }} />
   </Card>
@@ -31,6 +38,11 @@ const styles = {
   },
   cardTitle: {
     backgroundColor: "#ab47bc"
+  },
+  chip: {
+    alignSelf: "flex-start",
+    marginRight: 10,
+    marginBottom: 10
   }
 };
 
