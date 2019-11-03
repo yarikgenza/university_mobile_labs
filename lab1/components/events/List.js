@@ -3,25 +3,25 @@ import { View, FlatList } from "react-native";
 import { ActivityIndicator, Colors, Snackbar } from "react-native-paper";
 
 import Card from "./Card";
-import fetchMoviesList from "../../api/movies.api";
+import fetchEventsList from "../../api/events.api";
 
-class MoviesList extends Component {
+class EventsList extends Component {
   state = {
-    movies: [],
+    events: [],
     isLoading: true,
     isRefreshing: false,
     error: null
   };
 
   componentDidMount() {
-    this.fetchMovies();
+    this.fetchEvents();
   }
 
-  fetchMovies = async () => {
+  fetchEvents = async () => {
     try {
       this.setState({ isLoading: true });
-      const movies = await fetchMoviesList();
-      this.setState({ movies, isLoading: false });
+      const events = await fetchEventsList();
+      this.setState({ events, isLoading: false });
     } catch ({ message }) {
       this.setState({ error: message });
     }
@@ -29,14 +29,14 @@ class MoviesList extends Component {
 
   onListRefresh = async () => {
     this.setState({ isRefreshing: true });
-    const movies = await MoviesApi.getList();
-    this.setState({ isRefreshing: false, movies });
+    const events = await fetchEventsList();
+    this.setState({ isRefreshing: false, events });
   };
 
   _renderItem = ({ item }) => <Card item={item} />;
 
   render() {
-    const { isLoading, isRefreshing, movies, error } = this.state;
+    const { isLoading, isRefreshing, events, error } = this.state;
 
     return (
       <View>
@@ -44,7 +44,7 @@ class MoviesList extends Component {
           <ActivityIndicator animating color={Colors.red800} size="large" />
         ) : (
           <FlatList
-            data={movies}
+            data={events}
             renderItem={this._renderItem}
             keyExtractor={item => item.title}
             onRefresh={this.onListRefresh}
@@ -61,4 +61,4 @@ class MoviesList extends Component {
   }
 }
 
-export default MoviesList;
+export default EventsList;

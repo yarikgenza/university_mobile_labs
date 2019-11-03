@@ -18,17 +18,12 @@ const MovieCard = ({ item }) => (
       titleStyle={{ color: "white" }}
       subtitleStyle={{ color: "white" }}
       title={item.title}
-      subtitle={`Rating: ${item.rating} | Year: ${item.year} `}
+      subtitle={`Price: ${item.price.male} | Age: ${item.age.male}`}
     />
+    <Card.Cover source={{ uri: item.imageUrl }} />
     <Card.Content>
       <Paragraph>{item.description}</Paragraph>
-      <View style={{ flexDirection: "row" }}>
-        {item.tags.map(tag => (
-          <Chip style={styles.chip}>{tag}</Chip>
-        ))}
-      </View>
     </Card.Content>
-    <Card.Cover source={{ uri: item.poster }} />
   </Card>
 );
 

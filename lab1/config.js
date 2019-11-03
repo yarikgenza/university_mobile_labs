@@ -1,5 +1,5 @@
 export default {
-  backendUrl: "https://us-central1-lab1-e98cb.cloudfunctions.net",
+  backendUrl: "https://nighty-back-end.herokuapp.com",
   firebase: {
     apiKey: "AIzaSyD4vsG_jdM4ygiPPg0f71SIkTSBPZ2NpBc",
     authDomain: "lab1-e98cb.firebaseapp.com",

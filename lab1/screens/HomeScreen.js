@@ -4,11 +4,11 @@ import { Snackbar } from "react-native-paper";
 
 import NetInfo from "@react-native-community/netinfo";
 import Button from "../components/Button";
-import MoviesList from "../components/movies/List";
+import EventsList from "../components/events/List";
 
 class HomeScreen extends Component {
   static navigationOptions = {
-    title: "Movies"
+    title: "Events"
   };
 
   state = {
@@ -36,7 +36,7 @@ class HomeScreen extends Component {
 
     return (
       <SafeAreaView style={styles.container}>
-        <MoviesList />
+        <EventsList />
         <Snackbar visible={!isConnected} duration={300}>
           Connection lost :(
         </Snackbar>
