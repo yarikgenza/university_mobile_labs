@@ -1,14 +1,12 @@
-import Api from "./base.api";
+import config from "../config";
 
-class MoviesApi extends Api {
-  constructor() {
-    super("movies");
-  }
+const { backendUrl } = config;
 
-  getList = async () => {
-    const response = await this.request();
-    return response;
-  };
-}
+export default getList = async () => {
+  const headers = { "content-type": "application/json" };
+  const url = `${backendUrl}/movies`;
 
-export default new MoviesApi();
+  const response = await fetch(url, { headers });
+  const json = await response.json();
+  return json;
+};

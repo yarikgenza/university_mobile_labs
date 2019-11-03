@@ -3,7 +3,7 @@ import { View, FlatList } from "react-native";
 import { ActivityIndicator, Colors, Snackbar } from "react-native-paper";
 
 import Card from "./Card";
-import MoviesApi from "../../api/movies.api";
+import fetchMoviesList from "../../api/movies.api";
 
 class MoviesList extends Component {
   state = {
@@ -20,7 +20,7 @@ class MoviesList extends Component {
   fetchMovies = async () => {
     try {
       this.setState({ isLoading: true });
-      const movies = await MoviesApi.getList();
+      const movies = await fetchMoviesList();
       this.setState({ movies, isLoading: false });
     } catch ({ message }) {
       this.setState({ error: message });
