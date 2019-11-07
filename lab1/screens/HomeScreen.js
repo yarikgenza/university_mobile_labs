@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { SafeAreaView, View, Text } from "react-native";
 import { Snackbar } from "react-native-paper";
 
 import NetInfo from "@react-native-community/netinfo";
-import Firebase from "../makers/firebase";
 import Button from "../components/Button";
+import EventsList from "../components/events/List";
 
 class HomeScreen extends Component {
   static navigationOptions = {
-    title: "Movies"
+    title: "Events"
   };
 
   state = {
@@ -33,33 +33,22 @@ class HomeScreen extends Component {
 
   render() {
     const { isConnected } = this.state;
-    const { currentUser: user } = Firebase.auth();
 
-    return user ? (
-      <>
-        <View style={styles.container}>
-          <Text style={styles.welcomeText}>Hello, {user.displayName}</Text>
-          <Button
-            onPress={this.onSignOutPress}
-            type="primary"
-            title="Sign Out"
-          />
-        </View>
-
+    return (
+      <SafeAreaView style={styles.container}>
+        <EventsList />
         <Snackbar visible={!isConnected} duration={300}>
           Connection lost :(
         </Snackbar>
-      </>
-    ) : null;
+      </SafeAreaView>
+    );
   }
 }
 
 const styles = {
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: "center"
   }
 };
 
