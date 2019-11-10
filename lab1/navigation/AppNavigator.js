@@ -1,12 +1,16 @@
 import React from "react";
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { createAppContainer, createBottomTabNavigator } from "react-navigation";
 
 import MainStackNavigator from "./MainStackNavigator";
 import AuthStackNavigator from "./AuthStackNavigator";
 
+import ContentScreen from "../screens/ContentScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+
 export default createAppContainer(
-  createSwitchNavigator({
-    Auth: AuthStackNavigator,
-    Main: MainStackNavigator
+  createBottomTabNavigator({
+    Events: MainStackNavigator,
+    Content: ContentScreen,
+    Profile: ProfileScreen
   })
 );
