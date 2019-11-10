@@ -33,7 +33,14 @@ class EventsList extends Component {
     this.setState({ isRefreshing: false, events });
   };
 
-  _renderItem = ({ item }) => <Card item={item} />;
+  onItemPress = item => {
+    const { navigation } = this.props;
+    navigation.navigate("Event", { item });
+  };
+
+  _renderItem = ({ item }) => (
+    <Card item={item} onPress={() => this.onItemPress(item)} />
+  );
 
   render() {
     const { isLoading, isRefreshing, events, error } = this.state;

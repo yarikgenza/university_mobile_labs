@@ -11,8 +11,8 @@ import {
 } from "react-native-paper";
 import PropTypes from "prop-types";
 
-const MovieCard = ({ item }) => (
-  <Card style={styles.container}>
+const MovieCard = ({ item, onPress }) => (
+  <Card onPress={onPress} style={styles.container}>
     <Card.Title
       style={styles.cardTitle}
       titleStyle={{ color: "white" }}
