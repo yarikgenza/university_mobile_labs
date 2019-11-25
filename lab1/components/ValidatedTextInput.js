@@ -5,7 +5,8 @@ import PropTypes from "prop-types";
 
 class ValidatedTextInput extends Component {
   render() {
-    const error = this.props.errors.find(e => e.target === this.props.name);
+    const { errors = [] } = this.props;
+    const error = errors.find(e => e.target === this.props.name);
 
     return (
       <View>
