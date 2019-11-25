@@ -17,9 +17,19 @@ class ProfileScreen extends Component {
   };
 
   state = {
-    modified: false,
-    image: null
+    image: null,
+    displayName: "",
+    email: ""
   };
+
+  componentDidMount() {
+    const { displayName, email } = Firebase.auth().currentUser;
+
+    this.setState({
+      displayName,
+      email
+    });
+  }
 
   onAvatarPress = async () => {
     await this.getPermissionAsync();
@@ -27,18 +37,25 @@ class ProfileScreen extends Component {
   };
 
   onSavePress = async () => {
-    const { image } = this.state;
+    const { image, displayName } = this.state;
+    const user = Firebase.auth().currentUser;
 
-    const payload = {};
+    const payload = { displayName };
 
     if (image) {
       await this._uploadImage(image);
       const imgUrl = await Firebase.storage()
         .refFromURL(`${config.firebase.storageBucket}/avatar`)
         .getDownloadURL();
-      payload.profileImg = imgUrl;
+      payload.photoURL = imgUrl;
     }
+
+    await user.updateProfile(payload);
+    alert("Profile has been updated");
   };
+
+  onEmailChange = email => this.setState({ email });
+  onNameChange = displayName => this.setState({ displayName });
 
   getPermissionAsync = async () => {
     if (Constants.platform.ios) {
@@ -50,11 +67,11 @@ class ProfileScreen extends Component {
   };
 
   _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1
+      quality: 0.5
     });
 
     if (!result.cancelled) {
@@ -72,16 +89,17 @@ class ProfileScreen extends Component {
   };
 
   render() {
-    const { image } = this.state;
+    const { image, displayName, email } = this.state;
+    const user = Firebase.auth().currentUser;
 
     return (
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
           <TouchableOpacity onPress={this.onAvatarPress}>
-            {image ? (
+            {image || user.photoURL ? (
               <Image
                 style={{ width: 100, height: 100, borderRadius: 50 }}
-                source={{ uri: image }}
+                source={{ uri: image || user.photoURL }}
               />
             ) : (
               <Avatar.Text size={100} label="+" />
@@ -92,14 +110,14 @@ class ProfileScreen extends Component {
         <ValidatedTextInput
           label="Email"
           name="email"
-          value={"gsmeter@gmail.com"}
+          value={email}
           onChangeText={this.onEmailChange}
         />
 
         <ValidatedTextInput
           label="Name"
           name="name"
-          value={"Yarik Henza"}
+          value={displayName}
           onChangeText={this.onNameChange}
         />
 
