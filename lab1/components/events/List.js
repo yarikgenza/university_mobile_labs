@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, FlatList } from "react-native";
 import { ActivityIndicator, Colors, Snackbar } from "react-native-paper";
 
-import screens from "../constants/Screens";
+import Screens from "../../constants/Screens";
 import Card from "./Card";
 import fetchEventsList from "../../api/events.api";
 
