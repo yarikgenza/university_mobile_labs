@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { Avatar } from "react-native-paper";
-
-import Firebase from "../makers/firebase";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
+
+import Firebase from "../makers/firebase";
 import config from "../config";
 
 import Button from "../components/Button";
@@ -33,7 +33,7 @@ class ProfileScreen extends Component {
 
   onAvatarPress = async () => {
     await this.getPermissionAsync();
-    await this._pickImage();
+    await this.pickImage();
   };
 
   onSavePress = async () => {
@@ -66,7 +66,7 @@ class ProfileScreen extends Component {
     }
   };
 
-  _pickImage = async () => {
+  pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -98,7 +98,7 @@ class ProfileScreen extends Component {
           <TouchableOpacity onPress={this.onAvatarPress}>
             {image || user.photoURL ? (
               <Image
-                style={{ width: 100, height: 100, borderRadius: 50 }}
+                style={styles.avatarImg}
                 source={{ uri: image || user.photoURL }}
               />
             ) : (
@@ -136,6 +136,11 @@ const styles = {
     flex: 0.3,
     justifyContent: "center",
     alignItems: "center"
+  },
+  avatarImg: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   }
 };
 
