@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, FlatList } from "react-native";
 import { ActivityIndicator, Colors, Snackbar } from "react-native-paper";
 
+import screens from "../constants/Screens";
 import Card from "./Card";
 import fetchEventsList from "../../api/events.api";
 
@@ -33,7 +34,12 @@ class EventsList extends Component {
     this.setState({ isRefreshing: false, events });
   };
 
-  _renderItem = ({ item }) => <Card item={item} />;
+  onItemPress = item => {
+    const { navigation } = this.props;
+    navigation.navigate(Screens.EVENT, { item });
+  };
+
+  _renderItem = ({ item }) => <Card item={item} onPress={() => this.onItemPress(item)} />
 
   render() {
     const { isLoading, isRefreshing, events, error } = this.state;

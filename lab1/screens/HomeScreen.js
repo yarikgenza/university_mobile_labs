@@ -36,7 +36,7 @@ class HomeScreen extends Component {
 
     return (
       <SafeAreaView style={styles.container}>
-        <EventsList />
+        <EventsList {...this.props} />
         <Snackbar visible={!isConnected} duration={300}>
           Connection lost :(
         </Snackbar>
