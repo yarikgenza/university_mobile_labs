@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { View, FlatList } from "react-native";
 import { ActivityIndicator, Colors, Snackbar } from "react-native-paper";
 
-import screens from "../constants/Screens";
+import Screens from "../../constants/Screens";
 import Card from "./Card";
-import fetchEventsList from "../../api/events.api";
+import { getList } from "../../api/events.api";
 
 class EventsList extends Component {
   state = {
@@ -21,7 +21,7 @@ class EventsList extends Component {
   fetchEvents = async () => {
     try {
       this.setState({ isLoading: true });
-      const events = await fetchEventsList();
+      const events = await getList();
       this.setState({ events, isLoading: false });
     } catch ({ message }) {
       this.setState({ error: message });
@@ -30,7 +30,7 @@ class EventsList extends Component {
 
   onListRefresh = async () => {
     this.setState({ isRefreshing: true });
-    const events = await fetchEventsList();
+    const events = await getList();
     this.setState({ isRefreshing: false, events });
   };
 
